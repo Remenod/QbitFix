@@ -17,7 +17,7 @@ function updateTableHeaders() {
                 headers.forEach((header, index) => {
                     if (header.textContent.trim() === "-") {
                         header.textContent = index - 1;
-                        console.log(`Замінено <th>: ${index + 1}`);
+                        console.log(`Замінено <th>: ${index - 1}`);
                     } else {
                         console.log(`Текст у <th>: "${header.textContent.trim()}" не змінюється.`);
                     }
