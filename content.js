@@ -20,7 +20,7 @@ function updateTableHeaders() {
                 headers.forEach((header, index) => {
                     // Перевірити, чи вміст <th> є "-" і замінити його на порядковий номер
                     if (header.textContent.trim() === "-") {
-                        header.textContent = index + 1; // Порядковий номер
+                        header.textContent = index - 1; // Порядковий номер
                         console.log(`Замінено <th>: ${index + 1}`);
                     } else {
                         console.log(`Текст у <th>: "${header.textContent.trim()}" не змінюється.`);
