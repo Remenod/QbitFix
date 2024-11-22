@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "QbitFix",
-    "version": "1.0",
-    "description": "Додає номери задач куди дотягуються мої хтиві пальчики. \n by damn ℜ𝔢𝔪𝔢𝔫𝔬𝔡",
+    "version": "1.1",
+    "description": "Додає номери задач куди дотягуються мої хтиві пальчики \n by damn ℜ𝔢𝔪𝔢𝔫𝔬𝔡",
     "permissions": [
         "activeTab"
     ],
@@ -26,5 +26,10 @@
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     },
-    "incognito": "spanning"
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "remenod@gmail.com",
+            "strict_min_version": "109.0"
+        }
+    }
 }
