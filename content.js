@@ -15,11 +15,15 @@ function updateTableHeaders() {
 
             if (headers.length > 0) {
                 headers.forEach((header, index) => {
-                    if (header.textContent.trim().startsWith("-")) {
-                        header.textContent = index - 1; // Заміна лише першого символу "-"
-                        console.log(`Замінено <th>: ${index - 1}`);
-                    } else {
-                        console.log(`Текст у <th>: "${header.textContent.trim()}" не змінюється.`);
+                    const anchor = header.querySelector("a");
+                    if (anchor) {
+                        // Якщо в тексті <a> та атрибуті title є "-", замінюємо на порядковий номер
+                        if (anchor.textContent.trim().startsWith("-")) {
+                            const newText = `${index - 1}`;
+                            anchor.textContent = newText;
+                            anchor.setAttribute("title", anchor.getAttribute("title").replace("-", newText));
+                            console.log(`Замінено в <a> та title: ${newText}`);
+                        }
                     }
                 });
             } else {
