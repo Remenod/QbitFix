@@ -1,28 +1,18 @@
-// Функція для зміни вмісту <th> у першому <tr> таблиці (для сторінки /standings)
+//для сторінки /standings
 function updateTableHeaders() {
-    console.log("Функція updateTableHeaders викликана.");  // Лог для перевірки
     const table = document.querySelector("table#standingstable.stand.otbor_stand");
-
-    if (table) {
-        console.log("Таблиця для standings знайдена.");
-
+    if (table) {        
         const firstRow = table.querySelector("tbody tr");
-
-        if (firstRow) {
-            console.log("Перший рядок знайдено.");
-
+        if (firstRow) {            
             const headers = firstRow.querySelectorAll("th");
-
             if (headers.length > 0) {
                 headers.forEach((header, index) => {
                     const anchor = header.querySelector("a");
                     if (anchor) {
-                        // Якщо в тексті <a> та атрибуті title є "-", замінюємо на порядковий номер
                         if (anchor.textContent.trim().startsWith("-")) {
                             const newText = `${index - 1}`;
                             anchor.textContent = newText;
                             anchor.setAttribute("title", anchor.getAttribute("title").replace("-", newText));
-                            console.log(`Замінено в <a> та title: ${newText}`);
                         }
                     }
                 });
@@ -37,30 +27,21 @@ function updateTableHeaders() {
     }
 }
 
-// Функція для зміни вмісту <a> в кожному рядку таблиці на сторінці /problems
-function updateProblemTableLinks() {
-    console.log("Функція updateProblemTableLinks викликана.");  // Лог для перевірки
+//для сторінки /problems
+function updateProblemTableLinks() {    
     const urlParams = new URLSearchParams(window.location.search);
     const startValue = parseInt(urlParams.get('start') || '0');
-
     const table = document.querySelector("table#problemstable.t");
-
-    if (table) {
-        console.log("Таблиця для problems знайдена.");
-
+    if (table) {        
         const rows = table.querySelectorAll("tbody tr:not(:first-child)");
-
         if (rows.length > 0) {
             rows.forEach((row, index) => {
                 const pidCell = row.querySelector("td.pid");
-
                 if (pidCell) {
                     const link = pidCell.querySelector("a");
-
                     if (link) {
                         const newText = `${index + 1 + startValue}`;
                         link.textContent = newText;
-                        console.log(`Замінено в <a>: ${newText}`);
                     } else {
                         console.warn("Посилання <a> не знайдено в клітинці <td.pid>.");
                     }
@@ -76,42 +57,23 @@ function updateProblemTableLinks() {
     }
 }
 
-// Функція для зміни тексту в <option> на сторінці /solutions
-function updateSolutionSelectOptions() {
-    console.log("Функція updateSolutionSelectOptions викликана.");  // Лог для перевірки
+//для сторінки /solutions
+function updateSolutionSelectOptions() {    
     const form = document.querySelector("form#addsolutionform");
-
-    if (form) {
-        console.log("Форма для solutions знайдена.");
-
+    if (form) {        
         const table = form.querySelector("table#addsolutionformtable");
-
-        if (table) {
-            console.log("Таблиця для solutions знайдена.");
-
+        if (table) {            
             const firstRow = table.querySelector("tbody tr");
-
-            if (firstRow) {
-                console.log("Перший рядок знайдено.");
-
+            if (firstRow) {                
                 const secondTd = firstRow.querySelectorAll("td")[1];
-
                 if (secondTd) {
-                    console.log("Другий <td> знайдено.");
-
                     const select = secondTd.querySelector("select[name='pid']");
-
                     if (select) {
-                        console.log("<select> знайдено.");
-
                         const options = select.querySelectorAll("option");
-
                         options.forEach((option, index) => {
-                            if (index !== 0) { // Пропускаємо перший <option>
-                                // Замінюємо лише перший символ "-" на порядковий номер, якщо він є на початку
+                            if (index !== 0) {                                
                                 if (option.textContent.trim().charAt(0) === "-") {
-                                    option.textContent = `${index}` + option.textContent.trim().substring(1); // Заміна лише першого символу "-"
-                                    console.log(`Замінено текст <option> на: ${option.textContent}`);
+                                    option.textContent = `${index}` + option.textContent.trim().substring(1);
                                 }
                             }
                         });
@@ -136,7 +98,7 @@ function updateSolutionSelectOptions() {
 const observer = new MutationObserver(() => {
     console.log("DOM змінився, перевіряємо URL...");
     const currentURL = window.location.href;
-    console.log("Поточний URL:", currentURL);  // Виводимо URL для перевірки
+    console.log("Поточний URL:", currentURL);
 
     if (currentURL.includes("/standings")) {
         updateTableHeaders();
@@ -156,8 +118,6 @@ observer.observe(document.body, {
 // Додатково запускаємо оновлення при завантаженні сторінки
 document.addEventListener("DOMContentLoaded", () => {
     const currentURL = window.location.href;
-    console.log("Поточний URL при завантаженні сторінки:", currentURL); // Виводимо URL при завантаженні
-
     if (currentURL.includes("/standings")) {
         updateTableHeaders();
     } else if (currentURL.includes("/problems")) {
