@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "QbitFix",
     "version": "1.0",
-    "description": "Додає номери задач куди дотягуються мої хтиві пальчики \n by damn ℜ𝔢𝔪𝔢𝔫𝔬𝔡",
+    "description": "Додає номери задач куди дотягуються мої хтиві пальчики. \n by damn ℜ𝔢𝔪𝔢𝔫𝔬𝔡",
     "permissions": [
         "activeTab"
     ],
