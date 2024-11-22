@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Update Table Headers",
+    "version": "1.0",
+    "description": "Заміняє вміст <th> у таблиці на порядковий номер.",
+    "permissions": [ "activeTab" ],
+    "host_permissions": [ "https://qbit.dots.org.ua/standings" ],
+    "content_scripts": [
+        {
+            "matches": [ "https://qbit.dots.org.ua/standings" ],
+            "js": [ "content.js" ]
+        }
+    ]
+}
