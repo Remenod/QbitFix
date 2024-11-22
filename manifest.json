@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "QbitFix",
     "version": "1.0",
-    "description": "Заміняє вміст <th> у таблиці на порядковий номер, а також оновлює текст посилання у таблиці /problems.",
+    "description": "Додає номери задач куди дотягуються мої хтиві пальчики \n by damn ℜ𝔢𝔪𝔢𝔫𝔬𝔡",
     "permissions": [
         "activeTab"
     ],
@@ -18,9 +18,13 @@
                 "https://qbit.dots.org.ua/problems*",
                 "https://qbit.dots.org.ua/solutions*"
             ],
-            "js": [
-                "content.js"
-            ]
+            "js": [ "content.js" ]
         }
-    ]
+    ],
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "incognito": "spanning"
 }
