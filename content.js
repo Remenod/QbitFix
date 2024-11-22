@@ -1,28 +1,28 @@
-// Функція для зміни вмісту <th> у першому <tr> таблиці
+// Р¤СѓРЅРєС†С–СЏ РґР»СЏ Р·РјС–РЅРё РІРјС–СЃС‚Сѓ <th> Сѓ РїРµСЂС€РѕРјСѓ <tr> С‚Р°Р±Р»РёС†С–
 function updateTableHeaders() {
-    // Знайти таблицю за ID
+    // Р—РЅР°Р№С‚Рё С‚Р°Р±Р»РёС†СЋ Р·Р° ID
     const table = document.querySelector("table#standingstable.stand.otbor_stand");
 
     if (table) {
-        // Знайти перший рядок <tr> у таблиці
+        // Р—РЅР°Р№С‚Рё РїРµСЂС€РёР№ СЂСЏРґРѕРє <tr> Сѓ С‚Р°Р±Р»РёС†С–
         const firstRow = table.querySelector("thead tr");
         if (firstRow) {
-            // Отримати всі <th> у цьому рядку
+            // РћС‚СЂРёРјР°С‚Рё РІСЃС– <th> Сѓ С†СЊРѕРјСѓ СЂСЏРґРєСѓ
             const headers = firstRow.querySelectorAll("th");
             headers.forEach((header, index) => {
-                // Перевірити, чи вміст <th> є "-" і замінити його на порядковий номер
+                // РџРµСЂРµРІС–СЂРёС‚Рё, С‡Рё РІРјС–СЃС‚ <th> С” "-" С– Р·Р°РјС–РЅРёС‚Рё Р№РѕРіРѕ РЅР° РїРѕСЂСЏРґРєРѕРІРёР№ РЅРѕРјРµСЂ
                 if (header.textContent.trim() === "-") {
-                    header.textContent = index + 1; // Порядковий номер
+                    header.textContent = index + 1; // РџРѕСЂСЏРґРєРѕРІРёР№ РЅРѕРјРµСЂ
                 }
             });
-            console.log("Теги <th> успішно оновлено.");
+            console.log("РўРµРіРё <th> СѓСЃРїС–С€РЅРѕ РѕРЅРѕРІР»РµРЅРѕ.");
         } else {
-            console.warn("Перший рядок <tr> не знайдено.");
+            console.warn("РџРµСЂС€РёР№ СЂСЏРґРѕРє <tr> РЅРµ Р·РЅР°Р№РґРµРЅРѕ.");
         }
     } else {
-        console.warn("Таблицю не знайдено.");
+        console.warn("РўР°Р±Р»РёС†СЋ РЅРµ Р·РЅР°Р№РґРµРЅРѕ.");
     }
 }
 
-// Виклик функції
+// Р’РёРєР»РёРє С„СѓРЅРєС†С–С—
 updateTableHeaders();
