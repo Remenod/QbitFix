@@ -15,8 +15,8 @@ function updateTableHeaders() {
 
             if (headers.length > 0) {
                 headers.forEach((header, index) => {
-                    if (header.textContent.trim() === "-") {
-                        header.textContent = index - 1;
+                    if (header.textContent.trim().startsWith("-")) {
+                        header.textContent = index - 1; // Заміна лише першого символу "-"
                         console.log(`Замінено <th>: ${index - 1}`);
                     } else {
                         console.log(`Текст у <th>: "${header.textContent.trim()}" не змінюється.`);
@@ -104,9 +104,10 @@ function updateSolutionSelectOptions() {
 
                         options.forEach((option, index) => {
                             if (index !== 0) { // Пропускаємо перший <option>
+                                // Замінюємо лише перший символ "-" на порядковий номер, якщо він є на початку
                                 if (option.textContent.trim().charAt(0) === "-") {
-                                    option.textContent = `${index}`; // Порядковий номер
-                                    console.log(`Замінено текст <option> на: ${index}`);
+                                    option.textContent = `${index}` + option.textContent.trim().substring(1); // Заміна лише першого символу "-"
+                                    console.log(`Замінено текст <option> на: ${option.textContent}`);
                                 }
                             }
                         });
