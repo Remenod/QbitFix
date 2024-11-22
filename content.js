@@ -72,10 +72,64 @@ function updateProblemTableLinks() {
     }
 }
 
-// Створюємо спостерігача за змінами в DOM
+// Функція для зміни тексту в <option> на сторінці /solutions
+function updateSolutionSelectOptions() {
+    console.log("Функція updateSolutionSelectOptions викликана.");  // Лог для перевірки
+    const form = document.querySelector("form#addsolutionform");
+
+    if (form) {
+        console.log("Форма для solutions знайдена.");
+
+        const table = form.querySelector("table#addsolutionformtable");
+
+        if (table) {
+            console.log("Таблиця для solutions знайдена.");
+
+            const firstRow = table.querySelector("tbody tr");
+
+            if (firstRow) {
+                console.log("Перший рядок знайдено.");
+
+                const secondTd = firstRow.querySelectorAll("td")[1];
+
+                if (secondTd) {
+                    console.log("Другий <td> знайдено.");
+
+                    const select = secondTd.querySelector("select[name='pid']");
+
+                    if (select) {
+                        console.log("<select> знайдено.");
+
+                        const options = select.querySelectorAll("option");
+
+                        options.forEach((option, index) => {
+                            if (index !== 0) { // Пропускаємо перший <option>
+                                if (option.textContent.trim().charAt(0) === "-") {
+                                    option.textContent = `${index}`; // Порядковий номер
+                                    console.log(`Замінено текст <option> на: ${index}`);
+                                }
+                            }
+                        });
+                    } else {
+                        console.warn("<select> не знайдено.");
+                    }
+                } else {
+                    console.warn("Другий <td> не знайдено.");
+                }
+            } else {
+                console.warn("Перший рядок <tr> не знайдено.");
+            }
+        } else {
+            console.warn("Таблицю не знайдено.");
+        }
+    } else {
+        console.warn("Форму не знайдено.");
+    }
+}
+
+// Спостерігач за змінами в DOM
 const observer = new MutationObserver(() => {
     console.log("DOM змінився, перевіряємо URL...");
-
     const currentURL = window.location.href;
     console.log("Поточний URL:", currentURL);  // Виводимо URL для перевірки
 
@@ -83,6 +137,8 @@ const observer = new MutationObserver(() => {
         updateTableHeaders();
     } else if (currentURL.includes("/problems")) {
         updateProblemTableLinks();
+    } else if (currentURL.includes("/solutions")) {
+        updateSolutionSelectOptions();
     }
 });
 
@@ -92,7 +148,7 @@ observer.observe(document.body, {
     subtree: true
 });
 
-// Додатково запускаємо оновлення таблиці одразу після завантаження сторінки
+// Додатково запускаємо оновлення при завантаженні сторінки
 document.addEventListener("DOMContentLoaded", () => {
     const currentURL = window.location.href;
     console.log("Поточний URL при завантаженні сторінки:", currentURL); // Виводимо URL при завантаженні
@@ -101,5 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateTableHeaders();
     } else if (currentURL.includes("/problems")) {
         updateProblemTableLinks();
+    } else if (currentURL.includes("/solutions")) {
+        updateSolutionSelectOptions();
     }
 });

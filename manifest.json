@@ -8,13 +8,15 @@
     ],
     "host_permissions": [
         "https://qbit.dots.org.ua/standings",
-        "https://qbit.dots.org.ua/problems"
+        "https://qbit.dots.org.ua/problems",
+        "https://qbit.dots.org.ua/solutions"
     ],
     "content_scripts": [
         {
             "matches": [
                 "https://qbit.dots.org.ua/standings*",
-                "https://qbit.dots.org.ua/problems*"
+                "https://qbit.dots.org.ua/problems*",
+                "https://qbit.dots.org.ua/solutions*"
             ],
             "js": [
                 "content.js"
