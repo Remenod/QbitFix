@@ -1,26 +1,22 @@
-// Функція для зміни вмісту <th> у першому <tr> таблиці
+// Функція для зміни вмісту <th> у першому <tr> таблиці (для сторінки /standings)
 function updateTableHeaders() {
-    // Знайти таблицю за ID
+    console.log("Функція updateTableHeaders викликана.");  // Лог для перевірки
     const table = document.querySelector("table#standingstable.stand.otbor_stand");
 
     if (table) {
-        console.log("Таблиця знайдена.");
+        console.log("Таблиця для standings знайдена.");
 
-        // Знайти перший рядок <tr> у таблиці (в середині <tbody>)
         const firstRow = table.querySelector("tbody tr");
 
         if (firstRow) {
             console.log("Перший рядок знайдено.");
 
-            // Отримати всі <th> у цьому рядку
             const headers = firstRow.querySelectorAll("th");
 
-            // Якщо є <th> елементи
             if (headers.length > 0) {
                 headers.forEach((header, index) => {
-                    // Перевірити, чи вміст <th> є "-" і замінити його на порядковий номер
                     if (header.textContent.trim() === "-") {
-                        header.textContent = index - 1; // Порядковий номер
+                        header.textContent = index - 1;
                         console.log(`Замінено <th>: ${index + 1}`);
                     } else {
                         console.log(`Текст у <th>: "${header.textContent.trim()}" не змінюється.`);
@@ -37,19 +33,73 @@ function updateTableHeaders() {
     }
 }
 
-// Створюємо спостерігач за змінами в DOM
+// Функція для зміни вмісту <a> в кожному рядку таблиці на сторінці /problems
+function updateProblemTableLinks() {
+    console.log("Функція updateProblemTableLinks викликана.");  // Лог для перевірки
+    const urlParams = new URLSearchParams(window.location.search);
+    const startValue = parseInt(urlParams.get('start') || '0');
+
+    const table = document.querySelector("table#problemstable.t");
+
+    if (table) {
+        console.log("Таблиця для problems знайдена.");
+
+        const rows = table.querySelectorAll("tbody tr:not(:first-child)");
+
+        if (rows.length > 0) {
+            rows.forEach((row, index) => {
+                const pidCell = row.querySelector("td.pid");
+
+                if (pidCell) {
+                    const link = pidCell.querySelector("a");
+
+                    if (link) {
+                        const newText = `${index + 1 + startValue}`;
+                        link.textContent = newText;
+                        console.log(`Замінено в <a>: ${newText}`);
+                    } else {
+                        console.warn("Посилання <a> не знайдено в клітинці <td.pid>.");
+                    }
+                } else {
+                    console.warn("Клітинка <td.pid> не знайдена в рядку.");
+                }
+            });
+        } else {
+            console.warn("Рядки <tr> не знайдено або вони всі перші.");
+        }
+    } else {
+        console.warn("Таблицю не знайдено.");
+    }
+}
+
+// Створюємо спостерігача за змінами в DOM
 const observer = new MutationObserver(() => {
-    console.log("DOM змінився, оновлюємо таблицю...");
-    updateTableHeaders(); // Оновлюємо таблицю після зміни
+    console.log("DOM змінився, перевіряємо URL...");
+
+    const currentURL = window.location.href;
+    console.log("Поточний URL:", currentURL);  // Виводимо URL для перевірки
+
+    if (currentURL.includes("/standings")) {
+        updateTableHeaders();
+    } else if (currentURL.includes("/problems")) {
+        updateProblemTableLinks();
+    }
 });
 
 // Спостерігаємо за змінами в body
 observer.observe(document.body, {
-    childList: true, // Спостерігаємо за додаванням нових елементів
-    subtree: true // Спостерігаємо за всіма нащадками
+    childList: true,
+    subtree: true
 });
 
 // Додатково запускаємо оновлення таблиці одразу після завантаження сторінки
 document.addEventListener("DOMContentLoaded", () => {
-    updateTableHeaders(); // Оновлюємо таблицю після завантаження
+    const currentURL = window.location.href;
+    console.log("Поточний URL при завантаженні сторінки:", currentURL); // Виводимо URL при завантаженні
+
+    if (currentURL.includes("/standings")) {
+        updateTableHeaders();
+    } else if (currentURL.includes("/problems")) {
+        updateProblemTableLinks();
+    }
 });
